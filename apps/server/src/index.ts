@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import path from 'path'
-// Load root .env before any @repo/* imports (Prisma reads DATABASE_URL on init)
 dotenv.config({ path: path.resolve(process.cwd(), '../../.env') })
 
 import express from 'express'
@@ -25,7 +24,9 @@ app.use('/api/users', usersRoutes)
 app.use('/api/records', recordsRoutes)
 app.use('/api/dashboard', dashboardRoutes)
 
-app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }))
+app.get('/health', (req, res) => {
+  res.status(200).send('OK')
+})
 
 app.listen(PORT, () => {
   console.log(`[server] Running on http://localhost:${PORT}`)
