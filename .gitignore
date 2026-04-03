@@ -27,6 +27,7 @@ out/
 build
 dist
 
+git_diff.txt
 
 # Debug
 npm-debug.log*
@@ -36,3 +37,9 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Temp scripts & generated files
+git_diff.txt
+bump-font.js
+gen-favicon.mjs
+add-admin-data.ts
