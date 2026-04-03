@@ -16,21 +16,13 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Debug Project ID
-        run: echo "Project ID = '${{ secrets.RAILWAY_PROJECT_ID }}'"
-
-      - name: Debug Token (masked length)
+      - name: Debug Railway Token
         run: echo "Token length = ${#RAILWAY_TOKEN}"
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
-      - name: Link Railway Project
-        run: railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
       - name: Deploy to Railway
-        run: railway up --detach
+        run: railway up --detach --service server
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
@@ -51,14 +43,26 @@ jobs:
       - name: Install Vercel CLI
         run: npm install -g vercel
 
-      - name: Pull Vercel environment
+      # 🔍 Debug (optional)
+      - name: Debug Vercel Token
+        run: echo "Token exists"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+      # ✅ Pull env
+      - name: Pull Vercel Environment
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         working-directory: apps/web
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Build
+      # ✅ Build
+      - name: Build Frontend
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
         working-directory: apps/web
 
-      - name: Deploy
+      # ✅ Deploy
+      - name: Deploy Frontend
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
         working-directory: apps/web
