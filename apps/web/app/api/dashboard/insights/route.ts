@@ -4,17 +4,20 @@ import { getSummary, getCategoryWise, getTrends, getInsights } from "@repo/api";
 import { cacheGet, cacheSet } from "@repo/cache";
 
 export async function GET(req: NextRequest) {
-  const auth = requireAuth(req, "Analyst");
+  const auth = requireAuth(req, "User");
   if (auth instanceof NextResponse) return auth;
 
-  const key = `dashboard:${auth.user.id}:insights`;
+  const range = req.nextUrl.searchParams.get("range") || undefined;
+  const type = req.nextUrl.searchParams.get("type") || undefined;
+
+  const key = `dashboard:${auth.user.id}:insights:${range || 'all'}:${type || 'all'}`;
   const cached = await cacheGet(key);
   if (cached) return NextResponse.json(cached);
 
   const [summary, categories, trends] = await Promise.all([
-    getSummary(auth.user.id, auth.user.role),
-    getCategoryWise(auth.user.id, auth.user.role),
-    getTrends(auth.user.id, auth.user.role),
+    getSummary(auth.user.id, auth.user.role, { range, type }),
+    getCategoryWise(auth.user.id, auth.user.role, { range, type }),
+    getTrends(auth.user.id, auth.user.role, { range, type }),
   ]);
 
   const insights = getInsights({

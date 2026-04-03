@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const auth = requireAuth(req, "Analyst");
+  const auth = requireAuth(req, "User");
   if (auth instanceof NextResponse) return auth;
 
   const body = await req.json();

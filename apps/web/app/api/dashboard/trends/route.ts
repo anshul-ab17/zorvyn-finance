@@ -7,11 +7,14 @@ export async function GET(req: NextRequest) {
   const auth = requireAuth(req);
   if (auth instanceof NextResponse) return auth;
 
-  const key = `dashboard:${auth.user.id}:trends`;
+  const range = req.nextUrl.searchParams.get("range") || undefined;
+  const type = req.nextUrl.searchParams.get("type") || undefined;
+
+  const key = `dashboard:${auth.user.id}:trends:${range || 'all'}:${type || 'all'}`;
   const cached = await cacheGet(key);
   if (cached) return NextResponse.json(cached);
 
-  const data = await getTrends(auth.user.id, auth.user.role);
+  const data = await getTrends(auth.user.id, auth.user.role, { range, type });
   await cacheSet(key, data, 120);
   return NextResponse.json(data);
 }
