@@ -61,14 +61,21 @@ router.post('/login', async (req: Request, res: Response) => {
 // GET /api/auth/me
 router.get('/me', requireAuth(), async (req: Request, res: Response) => {
   try {
-    const user = await prisma.user.findUnique({
+    const raw = await prisma.user.findUnique({
       where: { id: req.user!.id },
-      select: { id: true, name: true, email: true, role: true, monthlyLimit: true, createdAt: true },
+      select: {
+        id: true, name: true, email: true, role: true,
+        monthlyLimit: true,
+        smtpHost: true, smtpPort: true, smtpUser: true, smtpPass: true,
+        createdAt: true,
+      },
     })
-    if (!user) {
+    if (!raw) {
       res.status(404).json({ error: 'User not found' })
       return
     }
+    const { smtpPass, ...rest } = raw
+    const user = { ...rest, smtpConfigured: !!smtpPass }
     res.json({ user })
   } catch {
     res.status(500).json({ error: 'Internal server error' })

@@ -197,7 +197,7 @@ export default function Home() {
             <Image src="/logo.jpeg" alt="Zorvyn" width={72} height={26} style={{ objectFit: 'contain', borderRadius: '4px', opacity: 0.6 }} />
             <span className="text-muted text-sm">Personal Finance Assistant</span>
           </div>
-          <span className="text-muted text-sm">Built by Anshul Bharat</span>
+          <span className="text-muted text-sm">Built by <a href="https://anshulbharat.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Anshul Bharat</a></span>
         </div>
       </footer>
     </div>

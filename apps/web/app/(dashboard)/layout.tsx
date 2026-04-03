@@ -124,7 +124,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         <div className="sidebar-footer">
-          <div className="sidebar-user" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
+          <Link href="/settings" className="sidebar-user" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px', textDecoration: 'none', cursor: 'pointer' }}>
             <div className="sidebar-avatar">{initials}</div>
             <div className="sidebar-user-info">
               <div className="sidebar-user-name">{user.name}</div>
@@ -135,7 +135,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {user.role}
               </div>
             </div>
-          </div>
+          </Link>
           <button className="btn btn-ghost w-full" onClick={handleLogout} style={{ justifyContent: 'flex-start' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />

@@ -8,6 +8,10 @@ export interface AuthUser {
   email: string
   role: string
   monthlyLimit?: number
+  smtpHost?: string
+  smtpPort?: number
+  smtpUser?: string
+  smtpConfigured?: boolean
 }
 
 interface AuthContextType {

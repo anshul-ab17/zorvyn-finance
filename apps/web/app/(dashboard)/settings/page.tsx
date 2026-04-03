@@ -2,7 +2,7 @@
 
 import { useState, useEffect, type FormEvent } from 'react'
 import { useAuth } from '../../context/AuthContext'
-import { Shield, User as UserIcon, Mail, Hash, Bell, Users, Pencil, Trash2, X, Check } from 'lucide-react'
+import { Shield, User as UserIcon, Mail, Hash, Bell, Users, Pencil, Trash2, X, Check, Server } from 'lucide-react'
 
 interface UserRecord {
   id: string
@@ -32,6 +32,14 @@ export default function SettingsPage() {
   const [selfLimit, setSelfLimit] = useState(user?.monthlyLimit?.toString() ?? '')
   const [selfSaving, setSelfSaving] = useState(false)
   const [selfMsg, setSelfMsg] = useState('')
+
+  // SMTP Config
+  const [smtpHost, setSmtpHost] = useState(user?.smtpHost ?? '')
+  const [smtpPort, setSmtpPort] = useState(user?.smtpPort?.toString() ?? '587')
+  const [smtpUser, setSmtpUser] = useState(user?.smtpUser ?? '')
+  const [smtpPass, setSmtpPass] = useState('')
+  const [smtpSaving, setSmtpSaving] = useState(false)
+  const [smtpMsg, setSmtpMsg] = useState('')
 
   // Edit user modal
   const [editUser, setEditUser] = useState<UserRecord | null>(null)
@@ -115,6 +123,33 @@ export default function SettingsPage() {
       setSelfMsg('Network error')
     } finally {
       setSelfSaving(false)
+    }
+  }
+
+  async function handleSaveSmtp(e: FormEvent) {
+    e.preventDefault()
+    if (!user) return
+    setSmtpSaving(true)
+    setSmtpMsg('')
+    try {
+      const body: Record<string, string | number> = {
+        smtpHost,
+        smtpPort: parseInt(smtpPort) || 587,
+        smtpUser,
+      }
+      if (smtpPass) body.smtpPass = smtpPass
+      const res = await fetch(`/api/users/${user.id}`, {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify(body),
+      })
+      if (!res.ok) { setSmtpMsg('Failed to save SMTP config'); return }
+      setSmtpMsg('SMTP config saved')
+      setSmtpPass('')
+    } catch {
+      setSmtpMsg('Network error')
+    } finally {
+      setSmtpSaving(false)
     }
   }
 
@@ -280,6 +315,88 @@ export default function SettingsPage() {
                 {selfMsg}
               </div>
             )}
+          </div>
+
+          {/* SMTP Config Card */}
+          <div className="card settings-card">
+            <div className="settings-card-header">
+              <div className="settings-card-icon" style={{ background: 'rgba(59, 130, 246, 0.15)', color: 'var(--info)' }}>
+                <Server size={20} />
+              </div>
+              <div>
+                <div className="settings-card-title">Email (SMTP) Config</div>
+                <div className="settings-card-desc">
+                  Used to send spending alert emails.&nbsp;
+                  {user?.smtpConfigured
+                    ? <span style={{ color: 'var(--success)', fontWeight: 600 }}>● Configured</span>
+                    : <span style={{ color: 'var(--text-muted)' }}>Not configured</span>}
+                </div>
+              </div>
+            </div>
+
+            <form onSubmit={handleSaveSmtp} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="grid-2" style={{ gap: '12px' }}>
+                <div className="form-group" style={{ margin: 0 }}>
+                  <label>SMTP Host</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="smtp.gmail.com"
+                    value={smtpHost}
+                    onChange={(e) => setSmtpHost(e.target.value)}
+                  />
+                </div>
+                <div className="form-group" style={{ margin: 0 }}>
+                  <label>SMTP Port</label>
+                  <input
+                    type="number"
+                    className="form-input"
+                    placeholder="587"
+                    value={smtpPort}
+                    onChange={(e) => setSmtpPort(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="grid-2" style={{ gap: '12px' }}>
+                <div className="form-group" style={{ margin: 0 }}>
+                  <label>SMTP User</label>
+                  <input
+                    type="email"
+                    className="form-input"
+                    placeholder="you@gmail.com"
+                    value={smtpUser}
+                    onChange={(e) => setSmtpUser(e.target.value)}
+                  />
+                </div>
+                <div className="form-group" style={{ margin: 0 }}>
+                  <label>SMTP Password {user?.smtpConfigured && <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 400 }}>(leave blank to keep current)</span>}</label>
+                  <input
+                    type="password"
+                    className="form-input"
+                    placeholder={user?.smtpConfigured ? '••••••••' : 'App password'}
+                    value={smtpPass}
+                    onChange={(e) => setSmtpPass(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <button type="submit" className="btn btn-primary" disabled={smtpSaving} style={{ whiteSpace: 'nowrap' }}>
+                  {smtpSaving ? 'Saving...' : 'Save SMTP Config'}
+                </button>
+                {smtpMsg && (
+                  <span style={{
+                    fontSize: '13px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    color: smtpMsg.includes('Failed') || smtpMsg.includes('error') ? 'var(--danger)' : 'var(--success)',
+                  }}>
+                    <Check size={14} />
+                    {smtpMsg}
+                  </span>
+                )}
+              </div>
+            </form>
           </div>
         </div>
       )}

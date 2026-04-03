@@ -27,7 +27,12 @@ export const createRecord = async (
       });
       const spent = agg._sum.amount || 0;
       if (spent > user.monthlyLimit) {
-        await sendLimitAlertEmail(user.email, user.name, user.monthlyLimit, spent);
+        await sendLimitAlertEmail(user.email, user.name, user.monthlyLimit, spent, {
+          host: user.smtpHost ?? '',
+          port: user.smtpPort ?? 587,
+          user: user.smtpUser ?? '',
+          pass: user.smtpPass ?? '',
+        })
       }
     }
   }

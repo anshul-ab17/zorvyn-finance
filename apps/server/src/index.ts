@@ -1,3 +1,8 @@
+import dotenv from 'dotenv'
+import path from 'path'
+// Load root .env before any @repo/* imports (Prisma reads DATABASE_URL on init)
+dotenv.config({ path: path.resolve(process.cwd(), '../../.env') })
+
 import express from 'express'
 import cors from 'cors'
 import authRoutes from './routes/auth.routes'

@@ -25,6 +25,10 @@ export const UserUpdateSchema = z.object({
   email: z.string().email().optional(),
   role: z.enum(["User", "Admin"]).optional(),
   monthlyLimit: z.number().positive().optional(),
+  smtpHost: z.string().optional(),
+  smtpPort: z.number().int().min(1).max(65535).optional(),
+  smtpUser: z.string().optional(),
+  smtpPass: z.string().optional(),
 });
 
 export const RecordCreateSchema = z.object({

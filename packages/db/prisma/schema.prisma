@@ -18,15 +18,19 @@ enum RecordType {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(User)
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  password     String
+  role         Role     @default(User)
   monthlyLimit Float?
-  records   Record[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  smtpHost     String?
+  smtpPort     Int?
+  smtpUser     String?
+  smtpPass     String?
+  records      Record[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@index([email])
 }
