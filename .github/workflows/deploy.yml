@@ -5,7 +5,6 @@ on:
     branches: [main]
 
 jobs:
-  # ── Backend → Railway ───────────────────────────────────────────────────
   deploy-backend:
     name: Deploy Backend (Railway)
     runs-on: ubuntu-latest
@@ -17,12 +16,16 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
+      - name: Link Railway Project
+        run: railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
       - name: Deploy to Railway
         run: railway up --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
-  # ── Frontend → Vercel ───────────────────────────────────────────────────
+ 
   deploy-frontend:
     name: Deploy Frontend (Vercel)
     runs-on: ubuntu-latest
