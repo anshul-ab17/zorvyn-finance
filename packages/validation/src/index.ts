@@ -4,7 +4,7 @@ export const RegisterSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(6),
-  role: z.enum(["Viewer", "Analyst", "Admin"]).default("Viewer"),
+  role: z.enum(["User", "Admin"]).default("User"),
 });
 
 export const LoginSchema = z.object({
@@ -17,13 +17,14 @@ export const UserSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(6),
-  role: z.enum(["Viewer", "Analyst", "Admin"]).default("Viewer"),
+  role: z.enum(["User", "Admin"]).default("User"),
 });
 
 export const UserUpdateSchema = z.object({
   name: z.string().min(2).optional(),
   email: z.string().email().optional(),
-  role: z.enum(["Viewer", "Analyst", "Admin"]).optional(),
+  role: z.enum(["User", "Admin"]).optional(),
+  monthlyLimit: z.number().positive().optional(),
 });
 
 export const RecordCreateSchema = z.object({

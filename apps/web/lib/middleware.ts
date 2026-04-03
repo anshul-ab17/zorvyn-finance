@@ -16,7 +16,7 @@ export const getAuthUser = (req: NextRequest): AuthUser | null => {
 
 export const requireAuth = (
   req: NextRequest,
-  minRole: Role = "Viewer"
+  minRole: Role = "User"
 ): { user: AuthUser } | NextResponse => {
   const user = getAuthUser(req);
   if (!user)

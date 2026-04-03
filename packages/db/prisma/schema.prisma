@@ -8,8 +8,7 @@ datasource db {
 }
 
 enum Role {
-  Viewer
-  Analyst
+  User
   Admin
 }
 
@@ -23,7 +22,8 @@ model User {
   name      String
   email     String   @unique
   password  String
-  role      Role     @default(Viewer)
+  role      Role     @default(User)
+  monthlyLimit Float?
   records   Record[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

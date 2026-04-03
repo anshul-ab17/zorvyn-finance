@@ -43,8 +43,7 @@ export const getUserFromToken = (
 
 // RBAC 
 export const ROLES = {
-  Viewer: 0,
-  Analyst: 1,
+  User: 1,
   Admin: 2,
 } as const;
 
