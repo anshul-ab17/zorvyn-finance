@@ -16,6 +16,14 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
+      - name: Debug Project ID
+        run: echo "Project ID = '${{ secrets.RAILWAY_PROJECT_ID }}'"
+
+      - name: Debug Token (masked length)
+        run: echo "Token length = ${#RAILWAY_TOKEN}"
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
       - name: Link Railway Project
         run: railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
         env:
@@ -25,7 +33,7 @@ jobs:
         run: railway up --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
- 
+
   deploy-frontend:
     name: Deploy Frontend (Vercel)
     runs-on: ubuntu-latest
