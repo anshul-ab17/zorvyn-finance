@@ -2,8 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { useAuth } from './context/AuthContext'
 import { useTheme } from 'next-themes'
 import { Moon, Sun } from 'lucide-react'
@@ -40,18 +39,11 @@ const STATS = [
 
 export default function LandingPage() {
   const { user, isLoading } = useAuth()
-  const router = useRouter()
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   // Avoid hydration mismatch for theme
   useEffect(() => setMounted(true), [])
-
-  useEffect(() => {
-    if (!isLoading && user) {
-      router.replace('/dashboard')
-    }
-  }, [user, isLoading, router])
 
   if (isLoading) {
     return (
@@ -66,8 +58,9 @@ export default function LandingPage() {
       {/* NAV */}
       <nav className="landing-nav">
         <div className="landing-nav-inner">
-          <div className="landing-nav-logo">
-            <Image src="/logo.jpeg" alt="Zorvyn" width={100} height={36} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
+          <div className="landing-nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Image src="/logo.jpeg" alt="Zorvyn" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
+            <span style={{ fontSize: '20px', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.5px' }}>Zorvyn</span>
           </div>
           <div className="landing-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {mounted && (
@@ -79,8 +72,14 @@ export default function LandingPage() {
                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
               </button>
             )}
-            <Link href="/login" className="btn btn-ghost">Sign in</Link>
-            <Link href="/register" className="btn btn-primary">Get started</Link>
+            {user ? (
+              <Link href="/dashboard" className="btn btn-primary">Go to Dashboard</Link>
+            ) : (
+              <>
+                <Link href="/login" className="btn btn-ghost">Sign in</Link>
+                <Link href="/register" className="btn btn-primary">Get started</Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
