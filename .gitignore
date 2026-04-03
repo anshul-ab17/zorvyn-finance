@@ -39,7 +39,6 @@ yarn-error.log*
 *.pem
 
 # Temp scripts & generated files
-git_diff.txt
 bump-font.js
 gen-favicon.mjs
 add-admin-data.ts

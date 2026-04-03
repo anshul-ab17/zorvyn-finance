@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 }
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const auth = requireAuth(req, "Analyst");
+  const auth = requireAuth(req, "User");
   if (auth instanceof NextResponse) return auth;
   const { id } = await params;
   const body = await req.json();
@@ -29,7 +29,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const auth = requireAuth(req, "Analyst");
+  const auth = requireAuth(req, "User");
   if (auth instanceof NextResponse) return auth;
   const { id } = await params;
   const record = await deleteRecord(id, auth.user.id, auth.user.role);
