@@ -11,7 +11,7 @@ export const getAllUsers = async () => {
 export const getUserById = async (id: string) => {
   return prisma.user.findUnique({
     where: { id },
-    select: { id: true, name: true, email: true, role: true, createdAt: true },
+    select: { id: true, name: true, email: true, role: true, monthlyLimit: true, createdAt: true },
   });
 };
 
@@ -19,7 +19,7 @@ export const updateUser = async (id: string, data: UserUpdateInput) => {
   return prisma.user.update({
     where: { id },
     data,
-    select: { id: true, name: true, email: true, role: true, updatedAt: true },
+    select: { id: true, name: true, email: true, role: true, monthlyLimit: true, updatedAt: true },
   });
 };
 

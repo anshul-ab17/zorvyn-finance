@@ -1,7 +1,36 @@
 import prisma from "@repo/db";
 
-export const getSummary = async (userId: string, role: string) => {
-  const where = role !== "Admin" ? { userId } : {};
+export interface DashboardFilters {
+  range?: string;
+  type?: string;
+}
+
+const buildWhere = (userId: string, role: string, filters?: DashboardFilters) => {
+  const where: any = role !== "Admin" ? { userId } : {};
+
+  if (filters?.type && filters.type !== "All records") {
+    // assume income or expense
+    where.type = filters.type.toLowerCase();
+  }
+
+  if (filters?.range && filters.range !== "All Time") {
+    const now = new Date();
+    if (filters.range === "7D") {
+      now.setDate(now.getDate() - 7);
+      where.date = { gte: now };
+    } else if (filters.range === "30D") {
+      now.setDate(now.getDate() - 30);
+      where.date = { gte: now };
+    } else if (filters.range === "YTD") {
+      where.date = { gte: new Date(now.getFullYear(), 0, 1) };
+    }
+  }
+
+  return where;
+};
+
+export const getSummary = async (userId: string, role: string, filters?: DashboardFilters) => {
+  const where = buildWhere(userId, role, filters);
 
   const records = await prisma.record.findMany({ where });
 
@@ -20,8 +49,8 @@ export const getSummary = async (userId: string, role: string) => {
   };
 };
 
-export const getCategoryWise = async (userId: string, role: string) => {
-  const where = role !== "Admin" ? { userId } : {};
+export const getCategoryWise = async (userId: string, role: string, filters?: DashboardFilters) => {
+  const where = buildWhere(userId, role, filters);
 
   const records = await prisma.record.findMany({ where });
 
@@ -39,8 +68,8 @@ export const getCategoryWise = async (userId: string, role: string) => {
   }));
 };
 
-export const getTrends = async (userId: string, role: string) => {
-  const where = role !== "Admin" ? { userId } : {};
+export const getTrends = async (userId: string, role: string, filters?: DashboardFilters) => {
+  const where = buildWhere(userId, role, filters);
   const records = await prisma.record.findMany({
     where,
     orderBy: { date: "asc" },
@@ -62,9 +91,10 @@ export const getTrends = async (userId: string, role: string) => {
 export const getRecent = async (
   userId: string,
   role: string,
-  limit = 10
+  limit = 10,
+  filters?: DashboardFilters
 ) => {
-  const where = role !== "Admin" ? { userId } : {};
+  const where = buildWhere(userId, role, filters);
   return prisma.record.findMany({
     where,
     orderBy: { date: "desc" },

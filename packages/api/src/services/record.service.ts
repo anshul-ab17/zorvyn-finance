@@ -1,11 +1,13 @@
 import prisma from "@repo/db";
 import type { RecordCreateInput, RecordUpdateInput, RecordFilterInput } from "@repo/validation";
 
+import { sendLimitAlertEmail } from "./email.service";
+
 export const createRecord = async (
   userId: string,
   data: RecordCreateInput
 ) => {
-  return prisma.record.create({
+  const result = await prisma.record.create({
     data: {
       ...data,
       type: data.type as "income" | "expense",
@@ -13,6 +15,24 @@ export const createRecord = async (
       userId,
     },
   });
+
+  if (data.type === "expense") {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (user && user.monthlyLimit) {
+      const now = new Date();
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      const agg = await prisma.record.aggregate({
+        where: { userId, type: "expense", date: { gte: startOfMonth } },
+        _sum: { amount: true },
+      });
+      const spent = agg._sum.amount || 0;
+      if (spent > user.monthlyLimit) {
+        await sendLimitAlertEmail(user.email, user.name, user.monthlyLimit, spent);
+      }
+    }
+  }
+
+  return result;
 };
 
 export const getRecords = async (
@@ -26,7 +46,7 @@ export const getRecords = async (
   const where: Record<string, unknown> = {
     ...(userRole !== "Admin" ? { userId } : {}),
     ...(type ? { type } : {}),
-    ...(category ? { category } : {}),
+    ...(category ? { category: { contains: category, mode: 'insensitive' } } : {}),
     ...(from || to
       ? {
           date: {
