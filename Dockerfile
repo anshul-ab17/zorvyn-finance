@@ -1,5 +1,7 @@
 FROM node:22-alpine AS builder
 
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 # Copy monorepo root
@@ -28,6 +30,5 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/server/dist ./dist
 COPY --from=builder /app/apps/server/package.json ./package.json
 
-EXPOSE 4000
 
 CMD ["node", "dist/index.js"]
