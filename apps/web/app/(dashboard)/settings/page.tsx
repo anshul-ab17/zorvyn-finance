@@ -286,7 +286,7 @@ export default function SettingsPage() {
 
             <form onSubmit={handleSaveLimit} className="settings-alert-form">
               <div className="settings-input-group">
-                <span className="settings-input-prefix">$</span>
+                <span className="settings-input-prefix">₹</span>
                 <input
                   type="number"
                   step="0.01"

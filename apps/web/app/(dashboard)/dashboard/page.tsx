@@ -44,9 +44,9 @@ interface Insight {
 type Tab = 'revenue' | 'records' | 'insights'
 
 function fmt(n: number) {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'INR',
     maximumFractionDigits: 0,
   }).format(n)
 }
@@ -243,7 +243,7 @@ export default function DashboardPage() {
                         <BarChart data={trends.map(t => ({ ...t, formattedMonth: fmtMonth(t.month) }))}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={theme === 'dark' ? '#333' : '#eee'} />
                           <XAxis dataKey="formattedMonth" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)' }} dy={10} />
-                          <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)' }} tickFormatter={(val) => `$${val >= 1000 ? val / 1000 + 'k' : val}`} width={55} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)' }} tickFormatter={(val) => `₹${val >= 1000 ? val / 1000 + 'k' : val}`} width={55} />
                           <RechartsTooltip 
                             cursor={{ fill: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}
                             contentStyle={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)' }}
