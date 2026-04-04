@@ -23,6 +23,8 @@ RUN npm run build --workspace=server
 # ── Runtime stage ──────────────────────────────────────────────────────────
 FROM node:22-alpine
 
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 # Copy only what's needed at runtime
