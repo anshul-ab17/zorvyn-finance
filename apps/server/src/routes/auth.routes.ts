@@ -27,7 +27,8 @@ router.post('/register', async (req: Request, res: Response) => {
     })
     const token = generateToken({ id: user.id, email: user.email, role: user.role, name: user.name })
     res.status(201).json({ user, token })
-  } catch {
+  } catch (err) {
+    console.error('[register]', err)
     res.status(500).json({ error: 'Internal server error' })
   }
 })
@@ -53,7 +54,8 @@ router.post('/login', async (req: Request, res: Response) => {
     }
     const token = generateToken({ id: user.id, email: user.email, role: user.role, name: user.name })
     res.json({ user: { id: user.id, name: user.name, email: user.email, role: user.role }, token })
-  } catch {
+  } catch (err) {
+    console.error('[login]', err)
     res.status(500).json({ error: 'Internal server error' })
   }
 })
