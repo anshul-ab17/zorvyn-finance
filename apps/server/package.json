@@ -20,6 +20,9 @@
     "express": "^4.19.2",
     "express-rate-limit": "^8.3.2"
   },
+  "prisma": {
+    "schema": "packages/db/prisma/schema.prisma"
+  },
   "devDependencies": {
     "@repo/typescript-config": "*",
     "@types/cors": "^2.8.17",
