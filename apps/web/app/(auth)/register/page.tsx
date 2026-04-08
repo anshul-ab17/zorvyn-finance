@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth, type AuthUser } from '../../context/AuthContext'
 
 export default function RegisterPage() {
   const [name, setName] = useState('')
@@ -26,12 +26,16 @@ export default function RegisterPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, role }),
       })
-      const data = (await res.json()) as { token?: string; user?: { id: string; name: string; email: string; role: string }; error?: string }
+      const data = (await res.json()) as { token?: string; user?: AuthUser; error?: string }
       if (!res.ok) {
         setError(data.error ?? 'Registration failed')
         return
       }
-      login(data.token!, data.user!)
+      if (!data.token || !data.user) {
+        setError('Registration failed')
+        return
+      }
+      login(data.token, data.user)
       router.push('/dashboard')
     } catch {
       setError('Network error. Please try again.')
