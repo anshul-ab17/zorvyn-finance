@@ -103,7 +103,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-logo">
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <Image src="/logo.png" alt="Pockit" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
+            <Image src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} alt="Pockit" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
           </Link>
           <button className="menu-trigger" onClick={() => setSidebarOpen(false)} style={{ display: sidebarOpen ? 'block' : '' }}>
             <X size={20} />

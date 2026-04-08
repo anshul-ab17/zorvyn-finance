@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useTheme } from 'next-themes'
 import { useAuth } from '../../context/AuthContext'
 
 export default function LoginPage() {
@@ -12,6 +13,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
+  const { theme } = useTheme()
   const router = useRouter()
 
   async function handleSubmit(e: FormEvent) {
@@ -42,7 +44,7 @@ export default function LoginPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-logo">
-          <Image src="/logo.png" alt="Pockit" width={120} height={48} style={{ objectFit: 'contain', borderRadius: '8px' }} priority />
+          <Image src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} alt="Pockit" width={120} height={48} style={{ objectFit: 'contain', borderRadius: '8px' }} priority />
           <p>AI-Style Finance Dashboard</p>
         </div>
 

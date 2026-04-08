@@ -58,7 +58,7 @@ export default function Home() {
       <nav className="landing-nav">
         <div className="landing-nav-inner">
           <div className="landing-nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Image src="/logo.png" alt="Pockit" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
+            <Image src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} alt="Pockit" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
             <span style={{ fontSize: '20px', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.5px' }}>Pockit</span>
           </div>
           <div className="landing-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -194,7 +194,7 @@ export default function Home() {
       <footer className="landing-footer">
         <div className="landing-nav-inner">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Image src="/logo.png" alt="Pockit" width={72} height={26} style={{ objectFit: 'contain', borderRadius: '4px', opacity: 0.6 }} />
+            <Image src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} alt="Pockit" width={72} height={26} style={{ objectFit: 'contain', borderRadius: '4px', opacity: 0.6 }} />
             <span className="text-muted text-sm">Personal Finance Assistant</span>
           </div>
           <span className="text-muted text-sm">Built by <a href="https://anshulbharat.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Anshul Bharat</a></span>
