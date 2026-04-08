@@ -31,8 +31,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const storedToken = localStorage.getItem('zorvyn_token')
-      const storedUser = localStorage.getItem('zorvyn_user')
+      const storedToken = localStorage.getItem('pockit_token')
+      const storedUser = localStorage.getItem('pockit_user')
       if (storedToken && storedUser) {
         setToken(storedToken)
         setUser(JSON.parse(storedUser) as AuthUser)
@@ -45,15 +45,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   function login(newToken: string, newUser: AuthUser) {
-    localStorage.setItem('zorvyn_token', newToken)
-    localStorage.setItem('zorvyn_user', JSON.stringify(newUser))
+    localStorage.setItem('pockit_token', newToken)
+    localStorage.setItem('pockit_user', JSON.stringify(newUser))
     setToken(newToken)
     setUser(newUser)
   }
 
   function logout() {
-    localStorage.removeItem('zorvyn_token')
-    localStorage.removeItem('zorvyn_user')
+    localStorage.removeItem('pockit_token')
+    localStorage.removeItem('pockit_user')
     setToken(null)
     setUser(null)
   }

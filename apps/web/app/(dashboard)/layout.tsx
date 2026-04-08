@@ -84,7 +84,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     .toUpperCase()
     .slice(0, 2)
 
-  const currentPage = NAV_ITEMS.find((n) => n.href === pathname)?.label ?? 'Zorvyn'
+  const currentPage = NAV_ITEMS.find((n) => n.href === pathname)?.label ?? 'Pockit'
 
   function handleLogout() {
     logout()
@@ -103,7 +103,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-logo">
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <Image src="/logo.jpeg" alt="Zorvyn" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
+            <Image src="/logo.png" alt="Pockit" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
           </Link>
           <button className="menu-trigger" onClick={() => setSidebarOpen(false)} style={{ display: sidebarOpen ? 'block' : '' }}>
             <X size={20} />

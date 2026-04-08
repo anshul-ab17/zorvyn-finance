@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './components/theme-provider'
 
 export const metadata: Metadata = {
-  title: 'Zorvyn — Finance Dashboard',
+  title: 'Pockit — Finance Dashboard',
   description: 'AI-style rule-based financial insights and tracking',
 }
 

@@ -58,8 +58,8 @@ export default function Home() {
       <nav className="landing-nav">
         <div className="landing-nav-inner">
           <div className="landing-nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Image src="/logo.jpeg" alt="Zorvyn" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
-            <span style={{ fontSize: '20px', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.5px' }}>Zorvyn</span>
+            <Image src="/logo.png" alt="Pockit" width={32} height={32} style={{ objectFit: 'contain', borderRadius: '6px' }} priority />
+            <span style={{ fontSize: '20px', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.5px' }}>Pockit</span>
           </div>
           <div className="landing-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {mounted && (
@@ -94,7 +94,7 @@ export default function Home() {
             <span className="text-accent">Your Financial Future</span>
           </h1>
           <p className="landing-hero-sub">
-            Zorvyn analyzes your spending habits automatically, notifying you when you overspend and forecasting your monthly savings — no messy spreadsheets required.
+            Pockit analyzes your spending habits automatically, notifying you when you overspend and forecasting your monthly savings — no messy spreadsheets required.
           </p>
           <div className="landing-hero-cta">
             <Link href="/register" className="btn btn-primary" style={{ padding: '13px 28px', fontSize: '15px' }}>
@@ -185,7 +185,7 @@ export default function Home() {
           </div>
           <div className="landing-demo-hint">
             <span>Try the demo: </span>
-            <code>admin@zorvyn.dev</code> / <code>admin123</code>
+            <code>admin@pockit.dev</code> / <code>admin123</code>
           </div>
         </div>
       </section>
@@ -194,7 +194,7 @@ export default function Home() {
       <footer className="landing-footer">
         <div className="landing-nav-inner">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Image src="/logo.jpeg" alt="Zorvyn" width={72} height={26} style={{ objectFit: 'contain', borderRadius: '4px', opacity: 0.6 }} />
+            <Image src="/logo.png" alt="Pockit" width={72} height={26} style={{ objectFit: 'contain', borderRadius: '4px', opacity: 0.6 }} />
             <span className="text-muted text-sm">Personal Finance Assistant</span>
           </div>
           <span className="text-muted text-sm">Built by <a href="https://anshulbharat.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Anshul Bharat</a></span>

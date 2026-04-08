@@ -144,7 +144,7 @@ export default function DashboardPage() {
       {whatsNewOpen && (
         <div className="card" style={{ marginBottom: '16px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.7' }}>
           <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '6px' }}>
-            Zorvyn v1.0 — Initial Release
+            Pockit v1.0 — Initial Release
           </div>
           Full-stack finance dashboard with AI-style rule-based insights, RBAC roles (User &amp; Admin), Redis caching, paginated records, and monthly trend analytics.
         </div>

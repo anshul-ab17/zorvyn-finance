@@ -27,17 +27,17 @@ export const sendLimitAlertEmail = async (
 
   try {
     await transporter.sendMail({
-      from: `"Zorvyn Alerts" <${smtp.user}>`,
+      from: `"Pockit Alerts" <${smtp.user}>`,
       to: email,
       subject: 'Monthly Spending Limit Exceeded',
       html: `
         <h2>Hello ${name},</h2>
-        <p>This is an automated alert from Zorvyn Finance.</p>
+        <p>This is an automated alert from Pockit Finance.</p>
         <p>Your total expenses this month have reached <b>$${totalSpend.toFixed(2)}</b>,
         which exceeds your set threshold of <b>$${limit.toFixed(2)}</b>.</p>
         <p>Please review your dashboard to manage your expenses.</p>
         <br>
-        <p>Best,<br>The Zorvyn Team</p>
+        <p>Best,<br>The Pockit Team</p>
       `,
     })
   } catch (error) {

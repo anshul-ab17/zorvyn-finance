@@ -18,23 +18,23 @@ async function main() {
 
   // ── Users ────────────────────────────────────────────────────────────────
   const admin = await prisma.user.create({
-    data: { name: "Anshul Bharat", email: "admin@zorvyn.dev", password: adminPass, role: "Admin", monthlyLimit: 50000 },
+    data: { name: "Anshul Bharat", email: "admin@pockit.dev", password: adminPass, role: "Admin", monthlyLimit: 50000 },
   });
 
   const priya = await prisma.user.create({
-    data: { name: "Priya Sharma",  email: "priya@zorvyn.dev",  password: user1Pass, role: "User", monthlyLimit: 30000 },
+    data: { name: "Priya Sharma",  email: "priya@pockit.dev",  password: user1Pass, role: "User", monthlyLimit: 30000 },
   });
 
   const alex = await prisma.user.create({
-    data: { name: "Alex Chen",     email: "alex@zorvyn.dev",   password: user2Pass, role: "User", monthlyLimit: 40000 },
+    data: { name: "Alex Chen",     email: "alex@pockit.dev",   password: user2Pass, role: "User", monthlyLimit: 40000 },
   });
 
   const sara = await prisma.user.create({
-    data: { name: "Sara Kapoor",   email: "sara@zorvyn.dev",   password: user3Pass, role: "User", monthlyLimit: 25000 },
+    data: { name: "Sara Kapoor",   email: "sara@pockit.dev",   password: user3Pass, role: "User", monthlyLimit: 25000 },
   });
 
   const rohan = await prisma.user.create({
-    data: { name: "Rohan Mehta",   email: "rohan@zorvyn.dev",  password: user4Pass, role: "User", monthlyLimit: 35000 },
+    data: { name: "Rohan Mehta",   email: "rohan@pockit.dev",  password: user4Pass, role: "User", monthlyLimit: 35000 },
   });
 
   const now = new Date();
@@ -162,11 +162,11 @@ async function main() {
 
   console.log("Seed complete!");
   console.log("\nDemo Accounts:");
-  console.log("  Admin: admin@zorvyn.dev  / admin123");
-  console.log("  User:  priya@zorvyn.dev  / user123");
-  console.log("  User:  alex@zorvyn.dev   / alex123");
-  console.log("  User:  sara@zorvyn.dev   / sara123");
-  console.log("  User:  rohan@zorvyn.dev  / rohan123");
+  console.log("  Admin: admin@pockit.dev  / admin123");
+  console.log("  User:  priya@pockit.dev  / user123");
+  console.log("  User:  alex@pockit.dev   / alex123");
+  console.log("  User:  sara@pockit.dev   / sara123");
+  console.log("  User:  rohan@pockit.dev  / rohan123");
 }
 
 main()

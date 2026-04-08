@@ -44,7 +44,7 @@ export default function RegisterPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-logo">
-          <Image src="/logo.jpeg" alt="Zorvyn" width={120} height={48} style={{ objectFit: 'contain', borderRadius: '8px' }} priority />
+          <Image src="/logo.png" alt="Pockit" width={120} height={48} style={{ objectFit: 'contain', borderRadius: '8px' }} priority />
           <p>AI-Style Finance Dashboard</p>
         </div>
 

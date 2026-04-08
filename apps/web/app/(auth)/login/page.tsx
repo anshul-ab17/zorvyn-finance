@@ -42,7 +42,7 @@ export default function LoginPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-logo">
-          <Image src="/logo.jpeg" alt="Zorvyn" width={120} height={48} style={{ objectFit: 'contain', borderRadius: '8px' }} priority />
+          <Image src="/logo.png" alt="Pockit" width={120} height={48} style={{ objectFit: 'contain', borderRadius: '8px' }} priority />
           <p>AI-Style Finance Dashboard</p>
         </div>
 
@@ -97,10 +97,10 @@ export default function LoginPage() {
           <div className="demo-box">
             <div className="demo-box-title">Demo accounts</div>
             <div className="demo-box-item">
-              <strong>Admin:</strong> admin@zorvyn.dev / admin123
+              <strong>Admin:</strong> admin@pockit.dev / admin123
             </div>
             <div className="demo-box-item">
-              <strong>User:</strong> user@zorvyn.dev / user123
+              <strong>User:</strong> user@pockit.dev / user123
             </div>
           </div>
         </div>
